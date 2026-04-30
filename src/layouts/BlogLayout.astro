@@ -1,7 +1,7 @@
 ---
 import { ClientRouter } from 'astro:transitions';
 
-const frontmatter = Astro.props.frontmatter;
+const { title } = Astro.props;
 
 import '../styles/global.css';
 import '../styles/blog.css';
@@ -14,12 +14,12 @@ import '../styles/blog.css';
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>{frontmatter.title}</title>
+    <title>{title}</title>
     <ClientRouter />
   </head>
   <body class="bg-gray-900">
-    <a href="/">Regresar</a>
     <main class="mb-10 max-w-5xl m-auto px-2 py-2">
+      <a href="/" id="btn-back">Regresar</a>
       <slot />
     </main>
   </body>

@@ -1,6 +1,13 @@
 ---
-const { frontmatter, url } = Astro.props;
+import type { CollectionEntry } from 'astro:content';
 import { Formatter } from '@utils/formatter';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const frontmatter = post.data;
 ---
 
 <div class="lg:flex">
@@ -11,7 +18,10 @@ import { Formatter } from '@utils/formatter';
   />
 
   <div class="flex flex-col justify-between py-6 lg:mx-6">
-    <a href={url} class="text-xl font-semibold hover:underline text-white">
+    <a
+      href={`/posts/${post.id}`}
+      class="text-xl font-semibold hover:underline text-white"
+    >
       {frontmatter.description}
     </a>
 

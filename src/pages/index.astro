@@ -1,10 +1,10 @@
 ---
-import BlogPost from '../components/BlogPost.astro';
+import { getCollection } from 'astro:content';
 import { SITE_CONFIG } from '../config/site-config';
 import MainLayout from '../layouts/MainLayout.astro';
+import BlogPost from '../components/BlogPost.astro';
 
-const matches = import.meta.glob('./posts/*.{md,mdx}', { eager: true });
-const posts = Object.values(matches) as any[];
+const blogPosts = await getCollection('blog');
 ---
 
 <MainLayout title={SITE_CONFIG.title}>
@@ -16,10 +16,10 @@ const posts = Object.values(matches) as any[];
       >
         {SITE_CONFIG.title}
       </h1>
+    </div>
 
-      <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
-        {posts.map((post) => <BlogPost {...post} />)}
-      </div>
+    <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
+      {blogPosts.map((post) => <BlogPost post={post} />)}
     </div>
   </section>
 </MainLayout>
